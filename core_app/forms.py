@@ -1,4 +1,8 @@
 from django import forms
+from .models import File
 
-class uploadPDFUpdate(forms.Form):
-    file = forms.FileField(label="Selecione o arquivo de tabelas em pdf")
+class uploadPDFForm(forms.ModelForm):
+
+    class Meta:
+        model = File
+        fields = ["docfile"]

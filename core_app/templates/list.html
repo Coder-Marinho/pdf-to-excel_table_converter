@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Pdf to excel converter</title>
+    </head>
+
+    <body>
+        {{ number }}
+        <!-- Upload form. Note enctype attribute! -->
+        <form action="{% url "my_view" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <p>{{ form.non_field_errors }}</p>
+
+            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+
+            <p>
+                {{ form.docfile.errors }}
+                {{ form.docfile }}
+            </p>
+
+            <div contenteditable="true">
+                {% for table in tables %}
+                    {{ table|safe }}
+                {% endfor %}
+            </div>
+
+            <p><input type="submit" value="Upload"/></p>
+        </form>
+    </body>
+</html>
