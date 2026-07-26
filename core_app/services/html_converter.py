@@ -1,6 +1,5 @@
 import pandas as pd
 
-from .extractor import extract_tables
 
 def tables_to_html(tables):
     
@@ -10,3 +9,16 @@ def tables_to_html(tables):
         html_tables.append(table.to_html(escape=True, index=False))
 
     return html_tables
+
+
+def headings(tables):
+
+    info = []
+
+    for table in tables:
+        rows, cols = table.shape
+        info.append({
+            "rows": rows,
+            "cols": cols,
+        })
+    return info

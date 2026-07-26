@@ -1,32 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <meta charset="utf-8">
         <title>Pdf to excel converter</title>
     </head>
 
     <body>
-        {{ number }}
+        <div class="top-background">
+
+            <div class="top">
+                <span><h1>Pdf to excel converter</h1></span>
+            </div>
+            
+        </div>
+
         <!-- Upload form. Note enctype attribute! -->
+
         <form action="{% url "my_view" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            
+
+            <span>{{ form.docfile }} {{ form.docfile.errors }}</span>
+
+            <input class="buttons" type="submit" value="Upload"/>
+            <span class="buttons">Quantidade de tabelas encontradas: {{ number }}</span>
+
+            <ul class="options">
+                <li><input type="radio" name="mode" value="concac"><label>Mesclar tabelas</label></li>
+                <li><input type="radio" name="mode" value="tabs"><label>Tabelas em abas separadas</label></li>
+                <li><input type="radio" name="mode" value="files"><label>Tabelas em arquivos separados</label></li>
+                <button class="button-download" type="button">Download</button>
+            </ul>
+
             <p>{{ form.non_field_errors }}</p>
 
-            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+            <p>{{ cells }}</p>
 
-            <p>
-                {{ form.docfile.errors }}
-                {{ form.docfile }}
-            </p>
-
-            <div contenteditable="true">
+            <div class="table-preview" contenteditable="true">
                 {% for table in tables %}
-                    {{ table|safe }}
+                    {{ table|safe }} 
                 {% endfor %}
             </div>
 
-            <p><input type="submit" value="Upload"/></p>
         </form>
+        
     </body>
 </html>
